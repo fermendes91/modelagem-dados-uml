@@ -30,7 +30,6 @@ public class Pedido {
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="pedido") // esta annotation em contato com a definidade em Pedido, fará com que o Pagamento tenha o mesmo ID do Pedido.
 	private Pagamento pagamento;
 	
-	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
@@ -39,7 +38,6 @@ public class Pedido {
 	@JoinColumn(name="endereco_entrega_id")
 	private Endereco enderecoEntrega;
 	
-	@JsonManagedReference
 	@OneToMany(mappedBy="id.pedido")
 	private Set<ItemPedido> itens = new HashSet<>();
 	
