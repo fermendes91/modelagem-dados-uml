@@ -3,9 +3,12 @@ package com.fermendes.cursomc.domain;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class ItemPedido {
 
+	@JsonIgnore
 	@EmbeddedId // Uma annotation para representar as 2 chaves primarias desta classe 
 	private ItemPedidoPK id = new ItemPedidoPK();
 	
@@ -55,6 +58,7 @@ public class ItemPedido {
 		this.preco = preco;
 	}
 	
+	@JsonIgnore // tudo que começa com GET o Spring entende que tem que ser serializado
 	public Pedido getPedido() {
 		return id.getPedido();
 	}

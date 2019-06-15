@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Produto implements Serializable{
@@ -35,6 +36,7 @@ public class Produto implements Serializable{
 			inverseJoinColumns=@JoinColumn(name="categoria_id"))
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="id.produto")
 	private Set<ItemPedido> itens = new HashSet<>();
 	
@@ -46,7 +48,8 @@ public class Produto implements Serializable{
 		this.preco = preco;
 	}
 
-	public List<Pedido> getPedidos() {
+	@JsonIgnore // Ignorar este metodo, do contrario também será serializado os produtos associados ao pedido, entrando em REFERENCIA CICLICA
+	public List<Pedido> getPedidos() {  // tudo que começa com GET o Spring entende que tem que ser serializado
 		List<Pedido> lista = new ArrayList<>();
 		for(ItemPedido item : itens) {
 			lista.add(item.getPedido());
